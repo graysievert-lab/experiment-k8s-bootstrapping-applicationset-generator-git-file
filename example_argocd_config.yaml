@@ -1,0 +1,37 @@
+### For application set controller, argo keys to the repositories should not be project scoped.
+
+application:
+  annotations:
+    argocd.argoproj.io/compare-options: >- 
+      ServerSideDiff=true,
+      IncludeMutationWebhook=true 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:     
+    - ApplyOutOfSyncOnly=true
+    - CreateNamespace=true
+    - SkipDryRunOnMissingResource=true
+    - ServerSideApply=true
+
+  type: helmChart # helmChart, helmRepo, manafests
+  helmChart:
+    repoURL: git@github.com:graysievert-lab/experiment-k8s-bootstrapping-applicationset-generator-git-file.git  # Points to a Helm chart repo with values file in the same repo
+    targetRevision: HEAD  # Branch, tag, commit
+    path: apps/nginx-private  # directory that contains Chart.ayml
+    valueFile: values.yaml
+
+  helmRepo: 
+    repoURL: https://charts.bitnami.com/bitnami  # Points to a Helm chart repo
+    chart: nginx  # cahrt name to pull from a Helm repo.
+    targetRevision: 18.0.0  # Chart version
+    values: # location of values for the chart
+      repoURL: git@github.com:graysievert-lab/experiment-k8s-bootstrapping-applicationset-generator-git-file.git # repository with values file
+      targetRevision: HEAD # Branch, tag, commit
+      valueFile: apps/nginx-public/values.yaml # path to values file from the repo root
+
+  manifests:
+    repoURL: git@github.com:graysievert-lab/experiment-k8s-bootstrapping-applicationset-generator-git-file.git  # Points to a git repo with manifests.
+    targetRevision: HEAD  # Branch, tag, commit
+    path: apps/kuard-kustom  # directory that contains manifests to render

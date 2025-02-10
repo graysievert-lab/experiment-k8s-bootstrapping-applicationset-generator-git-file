@@ -1,0 +1,21 @@
+application: 
+  annotations:
+    argocd.argoproj.io/compare-options: >- 
+      ServerSideDiff=true,
+      IncludeMutationWebhook=true 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:     
+    - ApplyOutOfSyncOnly=true
+    - CreateNamespace=true
+    - SkipDryRunOnMissingResource=true
+    - ServerSideApply=true
+
+  type: helmChart # helmChart, helmRepo, manafests
+  helmChart:
+    repoURL: git@github.com:graysievert-lab/experiment-k8s-bootstrapping-applicationset-generator-git-file.git
+    targetRevision: HEAD
+    path: apps/nginx-private
+    valueFile: values.yaml
