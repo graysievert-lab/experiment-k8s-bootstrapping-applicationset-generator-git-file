@@ -23,6 +23,15 @@ $ kubectl -n argocd port-forward services/argocd-applicationset-controller 7000:
 
 $ curl -X POST localhost:7000/api/webhook \
 -H 'Content-type: application/json' \
--H 'X-GitHub-Event: push' \
--d '{"ref": "HEAD","repository": {"ssh_url":"git@github.com:graysievert-lab/experiment-k8s-bootstrapping-applicationset-generator-git-file.git"}}'
+-H 'X-GitHub-Event:pull_request' \
+-d '{
+  "action": "opened",
+  "repository": {
+    "name": "experiment-k8s-bootstrapping-applicationset-generator-git-file",
+    "owner": {
+      "login": "graysievert-lab"
+    },
+    "url": "graysievert-lab/experiment-k8s-bootstrapping-applicationset-generator-git-file"
+  }
+}'
 ```
