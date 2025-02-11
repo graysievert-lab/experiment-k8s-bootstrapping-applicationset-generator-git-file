@@ -5,9 +5,10 @@ metadata:
   namespace: argocd
 spec:
   syncPolicy: # This sync policy pertains to the ApplicationSet, not to the Applications it creates.
-    # applicationsSync: create-only # Prevents ApplicationSet controller from modifying or deleting Applications
-    # applicationsSync: create-update # Prevents ApplicationSet controller from deleting Applications. Update is allowed
-    applicationsSync: create-delete # Prevents ApplicationSet controller from modifying Applications. Delete is allowed.
+    # applicationsSync: create-only # Prevents ApplicationSet controller from modifying or deleting Applications.
+    # applicationsSync: create-update # Prevents ApplicationSet controller from deleting Applications. Update is allowed.
+    # applicationsSync: create-delete # Prevents ApplicationSet controller from modifying Applications. Delete is allowed.
+    applicationsSync: sync # (default) Update and Delete are allowed.
     # preserveResourcesOnDeletion: true # Prevent an Application's child resources from being deleted, when the parent Application is deleted
 
   goTemplate: true
