@@ -8,9 +8,9 @@ application:
       prune: true
       selfHeal: true
     syncOptions:     
-    - ApplyOutOfSyncOnly=true
+    # - ApplyOutOfSyncOnly=true
     - CreateNamespace=true
-    - SkipDryRunOnMissingResource=true
+    # - SkipDryRunOnMissingResource=true
     - ServerSideApply=true
 
   type: manifests # helmChart, helmRepo, manifests
